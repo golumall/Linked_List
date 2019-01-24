@@ -1,0 +1,65 @@
+import java.util.Scanner;
+class Node
+{
+int data;
+Node next;
+Node(int data)
+{
+this.data=data;
+next=null;
+}
+}
+    
+class ReverseListSize
+{
+public static Node reverse(Node node, int k)
+    {
+        Node curr = node, prev = null, next = null;
+        int count = 0;
+        while(curr != null && count < k)
+        {
+            next = curr.next;
+		    curr.next = prev;
+		    prev = curr;
+		    curr = next;
+		    count++;
+        }
+        
+        if (next != null)
+	      node.next = reverse(next, k); 
+	      return prev;
+    }
+    public static void printList(Node node)
+    {
+    while(node!=null)
+    {
+    System.out.print(node.data+" ");
+    node=node.next;
+    }
+    }
+public static void main(String ar[])
+{
+Scanner sc=new Scanner(System.in);
+int t=sc.nextInt();
+while(t-->0)
+{
+int n=sc.nextInt();
+int a=sc.nextInt();
+Node head=new Node(a);
+Node temp=head,newNode;
+for(int i=2;i<=n;i++)
+{
+newNode=new Node(sc.nextInt());
+temp.next=newNode;
+temp=temp.next;
+}
+int k=sc.nextInt();
+printList(reverse(head,k));
+System.out.println();
+}
+
+}
+}
+
+
+
