@@ -1,0 +1,105 @@
+Given two polynomial in the form of linked list add them
+
+Given two polynomial numbers represented by a linked list. Write a function that add these lists means add the coefficients who have same variable powers.
+
+import java.io.*;
+class Node{
+    int data;
+    int pow;
+    Node next;
+    Node(int data,int pow)
+    {
+        this.data=data;
+        this.pow=pow;
+        this.next=null;
+    }
+}
+
+class PolynomialAddition {
+    Node head1,head2;
+    private void printFinalList(Node node)
+    {
+        while(node!=null)
+        {
+            System.out.print(node.data+" ");
+            node=node.next;
+        }
+    }
+    private Node getAddedList(Node head1,Node head2)
+    {
+        Node res=null,temp=null;
+        if(head1==null)
+          return head2;
+        if(head2==null)
+          return head1;
+        
+        while(head1!=null&&head2!=null)
+        {
+            if(head1.pow==head2.pow)
+              {
+                  Node node=new Node(head1.data+head2.data,head1.pow);
+                  if(res==null)
+                  {
+                    res=node;
+                    temp=node;
+                  }
+                  temp.next=node;
+                  temp=temp.next;
+                  head1=head1.next;
+                  head2=head2.next;
+                      
+              }
+             else if(head1.pow>head2.pow) 
+             {
+                 Node node=new Node(head1.data,head1.pow);
+                  if(res==null)
+                  {
+                    res=node;
+                    temp=node;
+                  }
+                  temp.next=node;
+                  temp=temp.next;
+                  head1=head1.next;
+             }
+             else
+             {
+                 Node node=new Node(head2.data,head2.pow);
+                  if(res==null)
+                  {
+                    res=node;
+                    temp=node;
+                  }
+                  temp.next=node;
+                  temp=temp.next;
+                  head2=head2.next;
+             }
+        }
+        while(head1!=null)
+          {
+              Node node=new Node(head1.data,head1.pow);
+              temp.next=node;
+              temp=temp.next;
+              head1=head1.next;
+          }
+         while(head2!=null)
+         {
+             Node node=new Node(head2.data,head2.pow);
+             temp.next=node;
+             temp=temp.next;
+             head2=head2.next;
+         }
+         return res;
+    }
+    
+	public static void main (String[] args) {
+		PolynomialAddition poly=new PolynomialAddition();
+		poly.head1=new Node(5,2);
+		poly.head1.next=new Node(4,1);
+		poly.head1.next.next=new Node(2,0);
+		
+		poly.head2=new Node(5,1);
+		poly.head2.next=new Node(5,0);
+	poly.printFinalList(poly.getAddedList(poly.head1,poly.head2));
+		
+	}
+}
