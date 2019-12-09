@@ -1,0 +1,65 @@
+Given a singly linked list, find middle of the linked list and set middle node of the linked list at beginning of the linked list.
+
+
+
+
+import java.io.*;
+class Node{
+    int data;
+    Node next;
+    Node(int data)
+    {
+        this.data=data;
+        this.next=null;
+    }
+}
+
+class Find {
+    Node head;
+    private Node makeMiddleHead(Node head)
+    {
+        Node slow=head,fast=head;
+        if(head==null)
+          return null;
+        if(head.next==null)
+          return head;
+        while(fast!=null&&fast.next!=null)
+        {
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        int d=slow.data;
+        slow.data=slow.next.data;
+        slow.next=slow.next.next;
+        Node node=new Node(d);
+        node.next=head;
+        head=node;
+        return head;
+        
+    }
+    private void printList(Node node)
+    {
+        if(node==null)
+           return;
+        while(node!=null)
+        {
+            System.out.print(node.data+" ");
+            node=node.next;
+        }
+    }
+	public static void main (String[] args) {
+		
+		Find list=new Find();
+		list.head=new Node(1);
+		list.head.next=new Node(2);
+		list.head.next.next=new Node(3);
+		list.head.next.next.next=new Node(4);
+		list.head.next.next.next.next=new Node(5);
+		list.head.next.next.next.next.next=new Node(6);
+		list.head.next.next.next.next.next.next=new Node(7);
+		list.printList(list.makeMiddleHead(list.head));
+		
+		
+		
+	}
+}
