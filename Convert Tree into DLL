@@ -50,6 +50,7 @@ class TreeToList {
              temp.next=node;
              temp=temp.next;
              temp.next=head;
+	     head.prev=temp;
          }
          
          conevrtTreeToList(root.next);
