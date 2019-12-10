@@ -1,0 +1,77 @@
+Write a recursive function treeToList(Node root) that takes an ordered binary tree and rearranges the internal pointers to make a circular doubly linked list out of the tree nodes. The”previous” pointers should be stored in the “small” field and the “next” pointers should be stored in the “large” field. The list should be arranged so that the nodes are in increasing order. Return the head pointer to the new list
+
+import java.io.*;
+class Node{
+    int data;
+    Node prev,next;
+    Node(int data)
+    {
+        this.data=data;
+        this.prev=null;
+        this.next=null;
+    }
+}
+
+class TreeToList {
+    Node head,tree,temp;
+    private void printList(Node node)
+    {
+        if(node==null)
+         return;
+        System.out.print(node.data+" "); 
+         node=node.next;
+         while(node!=head)
+         {
+             System.out.print(node.data+" ");
+             node=node.next;
+         }
+    }
+    private void inOrder(Node root)
+    {
+        if(root==null)
+          return;
+         inOrder(root.prev);
+         System.out.print(root.data+" ");
+         inOrder(root.next);
+    }
+    private void conevrtTreeToList(Node root)
+    {
+        if(root==null)
+         return;
+         conevrtTreeToList(root.prev);
+         if(head==null)
+         {
+             head=new Node(root.data);
+             temp=head;
+         }
+         else
+         {
+             Node node=new Node(root.data);
+             temp.next=node;
+             temp=temp.next;
+             temp.next=head;
+         }
+         
+         conevrtTreeToList(root.next);
+         
+        
+    }
+    
+	public static void main (String[] args) {
+	    TreeToList tl=new TreeToList();
+	    tl.tree=new Node(1);
+	    tl.tree.prev=new Node(2);
+	    tl.tree.next=new Node(3);
+	    tl.tree.prev.prev=new Node(4);
+	    tl.tree.prev.next=new Node(5);
+	    tl.tree.next.prev=new Node(6);
+	    tl.tree.next.next=new Node(7);
+	    
+	    tl.inOrder(tl.tree);
+	    System.out.println();
+	    tl.conevrtTreeToList(tl.tree);
+	    tl.printList(tl.head);
+	    
+	
+	}
+}
